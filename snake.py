@@ -16,6 +16,7 @@ from freegames import square, vector
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
+delay = 100
 
 
 def change(x, y):
@@ -45,6 +46,10 @@ def move():
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
+
+        # Aumenta velocidad con límite
+        if delay > 40: 
+            delay -= 5
     else:
         snake.pop(0)
 
@@ -55,7 +60,7 @@ def move():
 
     square(food.x, food.y, 9, 'green')
     update()
-    ontimer(move, 100)
+    ontimer(move, delay)
 
 
 setup(420, 420, 370, 0)
