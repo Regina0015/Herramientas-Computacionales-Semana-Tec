@@ -1,5 +1,5 @@
 Actividad 2: Juego de la vibora  
-Semana Tec Herramientas de la Computación 
+Semana Tec Herramientas de la Computación  
 Cambiar codigo original del juego clásico snake:  
 
 1-. La comida podrá moverse al azar un paso a la vez y no deberá de salirse de la ventana  
