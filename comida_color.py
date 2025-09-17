@@ -1,10 +1,14 @@
 from turtle import *
-from random import randrange
+from random import randrange, choice
 from freegames import square, vector
 
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
+colors = ["blue", "green", "yellow", "purple", "orange"]
+snake_color = choice(colors)
+food_color = choice([c for c in colors if c != snake_color])
+
 def move_food():
     """Mueve la comida un paso dentro de la ventana."""
     from random import choice
@@ -39,13 +43,14 @@ def move():
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
+        color()
     else:
         snake.pop(0)
 
     move_food()   
 
     clear()
-  
+
 def change(x, y):
     "Change snake direction."
     aim.x = x
@@ -77,9 +82,9 @@ def move():
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, snake_color)
+    square(food.x, food.y, 9, food_color)
 
-    square(food.x, food.y, 9, 'green')
     update()
     ontimer(move, 100)
 
