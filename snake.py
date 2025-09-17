@@ -18,7 +18,28 @@ snake = [vector(10, 0)]
 aim = vector(0, -10)
 delay = 100
 
+obstaculo= vector(40,0)
+def grid_rand():
+    return radrange(-15,15)*10
 
+def random_free_cell():
+    while True:
+        p= vector(grid_rand(), grid_rand())
+        if (p not in snake) and (p !=food):
+            return p 
+        
+def place_food():
+    global food
+    while True:
+        food.x, food.y =grid_rand(), grid_rand()
+        if (food not in snake) and (food !=obstacle):
+            return
+
+def place_obstacle():
+    global obstacle
+    obstacle= random_free_cell
+    
+    
 def change(x, y):
     """Change snake direction."""
     aim.x = x
@@ -32,6 +53,7 @@ def inside(head):
 
 def move():
     """Move snake forward one segment."""
+    global delay
     head = snake[-1].copy()
     head.move(aim)
 
@@ -62,6 +84,9 @@ def move():
     update()
     ontimer(move, delay)
 
+def relocate_obstacle_every_5s():
+    place_obstacle()
+    ontimer(relocate_obstacle_every_5s, 5000)
 
 setup(420, 420, 370, 0)
 hideturtle()
@@ -71,5 +96,10 @@ onkey(lambda: change(10, 0), 'Right')
 onkey(lambda: change(-10, 0), 'Left')
 onkey(lambda: change(0, 10), 'Up')
 onkey(lambda: change(0, -10), 'Down')
+
+place_food()
+place_obstacle()
+
 move()
+relocate_obstacle_every_5s()
 done()
